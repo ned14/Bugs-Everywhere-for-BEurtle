@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from distribute_setup import use_setuptools
+use_setuptools()
+
+from setuptools import setup, find_packages
 import os.path
 
 from libbe import _version
@@ -29,4 +32,5 @@ setup(
               'libbe.util'],
     scripts=['be', 'be.bat'],
     data_files=data_files,
+    install_requires=['pyyaml'],
     )
