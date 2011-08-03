@@ -27,6 +27,6 @@ setup(
               'libbe.ui',
               'libbe.ui.util',
               'libbe.util'],
-    scripts=['be'],
+    scripts=['be', 'be.bat'],
     data_files=data_files,
     )
