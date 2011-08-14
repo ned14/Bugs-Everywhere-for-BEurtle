@@ -32,5 +32,5 @@ setup(
               'libbe.util'],
     scripts=['be', 'be.bat'],
     data_files=data_files,
-    install_requires=['pyyaml'],
+    install_requires=['pyyaml', 'jinja2'],
     )
