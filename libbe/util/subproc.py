@@ -1,20 +1,20 @@
-# Copyright (C) 2009-2011 Chris Ball <cjb@laptop.org>
+# Copyright (C) 2009-2012 Chris Ball <cjb@laptop.org>
 #                         W. Trevor King <wking@drexel.edu>
 #
 # This file is part of Bugs Everywhere.
 #
-# Bugs Everywhere is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
-# Free Software Foundation, either version 2 of the License, or (at your
-# option) any later version.
+# Bugs Everywhere is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 2 of the License, or (at your option) any
+# later version.
 #
 # Bugs Everywhere is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 Functions for running external commands in subprocesses.
@@ -48,7 +48,7 @@ class CommandError(Exception):
 
 def invoke(args, stdin=None, stdout=PIPE, stderr=PIPE, expect=(0,),
            cwd=None, shell=None, unicode_output=True, verbose=False,
-           encoding=None):
+           encoding=None, **kwargs):
     """
     expect should be a tuple of allowed exit codes.  cwd should be
     the directory from which the command will be executed.  When
@@ -70,14 +70,14 @@ def invoke(args, stdin=None, stdout=PIPE, stderr=PIPE, expect=(0,),
             if shell is None:
                 shell = False
             q = Popen(args, stdin=PIPE, stdout=stdout, stderr=stderr,
-                      shell=shell, cwd=cwd)
+                      shell=shell, cwd=cwd, **kwargs)
         else:
             assert _MSWINDOWS==True, 'invalid platform'
             if shell is None:
                 shell = True
             # win32 don't have os.execvp() so have to run command in a shell
             q = Popen(args, stdin=PIPE, stdout=stdout, stderr=stderr,
-                      shell=shell, cwd=cwd)
+                      shell=shell, cwd=cwd, **kwargs)
     except OSError, e:
         raise CommandError(list_args, status=e.args[0], stderr=e)
     stdout,stderr = q.communicate(input=stdin)

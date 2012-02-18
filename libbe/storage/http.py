@@ -1,20 +1,20 @@
-# Copyright (C) 2010-2011 Chris Ball <cjb@laptop.org>
+# Copyright (C) 2010-2012 Chris Ball <cjb@laptop.org>
 #                         W. Trevor King <wking@drexel.edu>
 #
 # This file is part of Bugs Everywhere.
 #
-# Bugs Everywhere is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
-# Free Software Foundation, either version 2 of the License, or (at your
-# option) any later version.
+# Bugs Everywhere is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 2 of the License, or (at your option) any
+# later version.
 #
 # Bugs Everywhere is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
 
 # For urllib2 information, see
 #   urllib2, from urllib2 - The Missing Manual
@@ -335,14 +335,14 @@ if TESTING == True:
     class GetPostUrlTestCase (unittest.TestCase):
         """Test cases for get_post_url()"""
         def test_get(self):
-            url = 'http://bugseverywhere.org/be/show/HomePage'
+            url = 'http://bugseverywhere.org/'
             page,final_url,info = get_post_url(url=url)
             self.failUnless(final_url == url,
                 'Redirect?\n  Expected: "%s"\n  Got:      "%s"'
                 % (url, final_url))
         def test_get_redirect(self):
-            url = 'http://bugseverywhere.org'
-            expected = 'http://bugseverywhere.org/be/show/HomePage'
+            url = 'http://physics.drexel.edu/~wking/code/be/redirect'
+            expected = 'http://physics.drexel.edu/~wking/'
             page,final_url,info = get_post_url(url=url)
             self.failUnless(final_url == expected,
                 'Redirect?\n  Expected: "%s"\n  Got:      "%s"'

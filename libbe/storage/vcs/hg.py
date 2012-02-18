@@ -1,24 +1,25 @@
-# Copyright (C) 2005-2011 Aaron Bentley <abentley@panoramicfeedback.com>
+# Copyright (C) 2005-2012 Aaron Bentley <abentley@panoramicfeedback.com>
 #                         Ben Finney <benf@cybersource.com.au>
 #                         Chris Ball <cjb@laptop.org>
 #                         Gianluca Montecchi <gian@grys.it>
 #                         Marien Zwart <marien.zwart@gmail.com>
+#                         Phil Schumm <philschumm@gmail.com>
 #                         W. Trevor King <wking@drexel.edu>
 #
 # This file is part of Bugs Everywhere.
 #
-# Bugs Everywhere is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
-# Free Software Foundation, either version 2 of the License, or (at your
-# option) any later version.
+# Bugs Everywhere is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 2 of the License, or (at your option) any
+# later version.
 #
 # Bugs Everywhere is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
 
 """Mercurial_ (hg) backend.
 
@@ -83,14 +84,18 @@ class Hg(base.VCS):
         assert len(kwargs) == 1, kwargs
         fullargs = ['--cwd', kwargs['cwd']]
         fullargs.extend(args)
-        stdout = sys.stdout
-        tmp_stdout = StringIO.StringIO()
-        sys.stdout = tmp_stdout
         cwd = os.getcwd()
-        mercurial.dispatch.dispatch(fullargs)
+        output = StringIO.StringIO()
+        if self.version_cmp(1,9) >= 0:
+            req = mercurial.dispatch.request(fullargs, fout=output)
+            mercurial.dispatch.dispatch(req)
+        else:
+            stdout = sys.stdout
+            sys.stdout = output
+            mercurial.dispatch.dispatch(fullargs)
+            sys.stdout = stdout
         os.chdir(cwd)
-        sys.stdout = stdout
-        return tmp_stdout.getvalue().rstrip('\n')
+        return output.getvalue().rstrip('\n')
 
     def _vcs_get_user_id(self):
         output = self._u_invoke_client(

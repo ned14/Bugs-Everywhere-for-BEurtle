@@ -1,20 +1,20 @@
-# Copyright (C) 2009-2011 Chris Ball <cjb@laptop.org>
+# Copyright (C) 2009-2012 Chris Ball <cjb@laptop.org>
 #                         W. Trevor King <wking@drexel.edu>
 #
 # This file is part of Bugs Everywhere.
 #
-# Bugs Everywhere is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
-# Free Software Foundation, either version 2 of the License, or (at your
-# option) any later version.
+# Bugs Everywhere is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 2 of the License, or (at your option) any
+# later version.
 #
 # Bugs Everywhere is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 A command line interface to Bugs Everywhere.
@@ -133,8 +133,9 @@ class CmdOptionParser(optparse.OptionParser):
             else:
                 value = self.process_raw_argument(argument=argument, value=arg)
                 parsed_args[i] = value
-        if len(parsed_args) > len(self.command.args) \
-                and self.command.args[-1].repeatable == False:
+        if (len(parsed_args) > len(self.command.args) and
+            (len(self.command.args) == 0 or
+             self.command.args[-1].repeatable == False)):
             raise libbe.command.UserError('Too many arguments')
         for arg in self.command.args[len(parsed_args):]:
             if arg.optional == False:

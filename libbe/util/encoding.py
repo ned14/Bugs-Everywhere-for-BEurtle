@@ -1,21 +1,21 @@
-# Copyright (C) 2008-2011 Chris Ball <cjb@laptop.org>
+# Copyright (C) 2008-2012 Chris Ball <cjb@laptop.org>
 #                         Gianluca Montecchi <gian@grys.it>
 #                         W. Trevor King <wking@drexel.edu>
 #
 # This file is part of Bugs Everywhere.
 #
-# Bugs Everywhere is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
-# Free Software Foundation, either version 2 of the License, or (at your
-# option) any later version.
+# Bugs Everywhere is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 2 of the License, or (at your option) any
+# later version.
 #
 # Bugs Everywhere is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 Support input/output/filesystem encodings (e.g. UTF-8).
@@ -23,6 +23,7 @@ Support input/output/filesystem encodings (e.g. UTF-8).
 
 import codecs
 import locale
+import os
 import sys
 import types
 
@@ -31,7 +32,8 @@ if libbe.TESTING == True:
     import doctest
 
 
-ENCODING = None # override get_encoding() output by setting this
+ENCODING = os.environ.get('BE_ENCODING', None)
+"override get_encoding() output"
 
 def get_encoding():
     """
@@ -41,18 +43,17 @@ def get_encoding():
     if ENCODING != None:
         return ENCODING
     encoding = locale.getpreferredencoding() or sys.getdefaultencoding()
-    if sys.platform != 'win32' or sys.version_info[:2] > (2, 3):
-        encoding = locale.getlocale(locale.LC_TIME)[1] or encoding
-        # Python 2.3 on windows doesn't know about 'XYZ' alias for 'cpXYZ'
     return encoding
 
 def get_input_encoding():
-    return get_encoding()
+    return sys.__stdin__.encoding or get_encoding()
 
 def get_output_encoding():
     return sys.__stdout__.encoding or get_encoding()
 
-def get_filesystem_encoding():
+def get_text_file_encoding():
+    """Return the encoding that should be used for file contents
+    """
     return get_encoding()
 
 def get_argv_encoding():
@@ -74,7 +75,7 @@ def known_encoding(encoding):
 def get_file_contents(path, mode='r', encoding=None, decode=False):
     if decode == True:
         if encoding == None:
-            encoding = get_filesystem_encoding()
+            encoding = get_text_file_encoding()
         f = codecs.open(path, mode, encoding)
     else:
         f = open(path, mode)
@@ -85,7 +86,7 @@ def get_file_contents(path, mode='r', encoding=None, decode=False):
 def set_file_contents(path, contents, mode='w', encoding=None):
     if type(contents) == types.UnicodeType:
         if encoding == None:
-            encoding = get_filesystem_encoding()
+            encoding = get_text_file_encoding()
         f = codecs.open(path, mode, encoding)
     else:
         f = open(path, mode)

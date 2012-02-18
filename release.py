@@ -1,22 +1,22 @@
 #!/usr/bin/python
 #
-# Copyright (C) 2009-2011 Chris Ball <cjb@laptop.org>
+# Copyright (C) 2009-2012 Chris Ball <cjb@laptop.org>
 #                         W. Trevor King <wking@drexel.edu>
 #
 # This file is part of Bugs Everywhere.
 #
-# Bugs Everywhere is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
-# Free Software Foundation, either version 2 of the License, or (at your
-# option) any later version.
+# Bugs Everywhere is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 2 of the License, or (at your option) any
+# later version.
 #
 # Bugs Everywhere is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# Bugs Everywhere.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import os.path
@@ -25,7 +25,6 @@ import string
 import sys
 
 from libbe.util.subproc import Pipe, invoke
-from update_copyright import update_authors, update_files
 
 
 INITIAL_COMMIT = '1bf1ec598b436f41ff27094eddf0b28c797e359d'
@@ -67,7 +66,7 @@ def pending_changes():
 
 def set_release_version(tag):
     print "set libbe.version._VERSION = '%s'" % tag
-    invoke(['sed', '-i', "s/^# *_VERSION *=.*/_VERSION = '%s'/" % tag,
+    invoke(['sed', '-i', "s/^[# ]*_VERSION *=.*/_VERSION = '%s'/" % tag,
             os.path.join('libbe', 'version.py')])
 
 def remove_makefile_libbe_version_dependencies(filename):
@@ -141,7 +140,6 @@ def create_tarball(tag):
     shutil.copy(os.path.join('.be', 'id-cache'),
                 os.path.join(export_dir, '.be', 'id-cache'))
     set_vcs_name(os.path.join(export_dir, '.be'))
-    os.remove(os.path.join(export_dir, 'update_copyright.py'))
     tarball_file = '%s.tar.gz' % release_name
     print 'create tarball', tarball_file
     invoke(['tar', '-czf', tarball_file, export_dir])
@@ -182,8 +180,15 @@ If you don't like what got committed, you can undo the release with
         sys.exit(1)
     set_release_version(_tag)
     print "Update copyright information..."
-    update_authors()
-    update_files()
+    env = dict(os.environ)
+    pythonpath = os.path.abspath('update-copyright')
+    if 'PYTHONPATH' in env:
+        env['PYTHONPATH'] = '{}:{}'.format(pythonpath, env['PYTHONPATH'])
+    else:
+        env['PYTHONPATH'] = pythonpath
+    status,stdout,stderr = invoke([
+            os.path.join('update-copyright', 'bin', 'update-copyright.py')],
+            env=env)
     commit("Bumped to version %s" % _tag)
     tag(_tag)
     create_tarball(_tag)
