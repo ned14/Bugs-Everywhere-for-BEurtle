@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8642db62-4d9d-4bed-90ec-50f3e8763468}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>be.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>BE-IronPython</Name>
+    <RootNamespace>BE-IronPython</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <InterpreterId>80659ab7-4d53-4e0c-8588-a766116cbd46</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+    <LaunchProvider>IronPython (.NET) launcher</LaunchProvider>
+    <CommandLineArguments />
+    <InterpreterPath />
+    <DebugStdLib>False</DebugStdLib>
+    <InterpreterArguments />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="be.py" />
+    <Compile Include="libbe\bug.py" />
+    <Compile Include="libbe\bugdir.py" />
+    <Compile Include="libbe\command\assign.py" />
+    <Compile Include="libbe\command\base.py" />
+    <Compile Include="libbe\command\comment.py" />
+    <Compile Include="libbe\command\commit.py" />
+    <Compile Include="libbe\command\depend.py" />
+    <Compile Include="libbe\command\diff.py" />
+    <Compile Include="libbe\command\due.py" />
+    <Compile Include="libbe\command\help.py" />
+    <Compile Include="libbe\command\html.py" />
+    <Compile Include="libbe\command\import_xml.py" />
+    <Compile Include="libbe\command\init.py" />
+    <Compile Include="libbe\command\list.py" />
+    <Compile Include="libbe\command\merge.py" />
+    <Compile Include="libbe\command\new.py" />
+    <Compile Include="libbe\command\remove.py" />
+    <Compile Include="libbe\command\serve.py" />
+    <Compile Include="libbe\command\set.py" />
+    <Compile Include="libbe\command\severity.py" />
+    <Compile Include="libbe\command\show.py" />
+    <Compile Include="libbe\command\status.py" />
+    <Compile Include="libbe\command\subscribe.py" />
+    <Compile Include="libbe\command\tag.py" />
+    <Compile Include="libbe\command\target.py" />
+    <Compile Include="libbe\command\util.py" />
+    <Compile Include="libbe\command\__init__.py" />
+    <Compile Include="libbe\comment.py" />
+    <Compile Include="libbe\diff.py" />
+    <Compile Include="libbe\error.py" />
+    <Compile Include="libbe\storage\base.py" />
+    <Compile Include="libbe\storage\http.py" />
+    <Compile Include="libbe\storage\util\config.py" />
+    <Compile Include="libbe\storage\util\mapfile.py" />
+    <Compile Include="libbe\storage\util\properties.py" />
+    <Compile Include="libbe\storage\util\settings_object.py" />
+    <Compile Include="libbe\storage\util\upgrade.py" />
+    <Compile Include="libbe\storage\util\__init__.py" />
+    <Compile Include="libbe\storage\vcs\arch.py" />
+    <Compile Include="libbe\storage\vcs\base.py" />
+    <Compile Include="libbe\storage\vcs\bzr.py" />
+    <Compile Include="libbe\storage\vcs\darcs.py" />
+    <Compile Include="libbe\storage\vcs\git.py" />
+    <Compile Include="libbe\storage\vcs\hg.py" />
+    <Compile Include="libbe\storage\vcs\monotone.py" />
+    <Compile Include="libbe\storage\vcs\__init__.py" />
+    <Compile Include="libbe\storage\__init__.py" />
+    <Compile Include="libbe\ui\command_line.py" />
+    <Compile Include="libbe\ui\util\editor.py" />
+    <Compile Include="libbe\ui\util\pager.py" />
+    <Compile Include="libbe\ui\util\user.py" />
+    <Compile Include="libbe\ui\util\__init__.py" />
+    <Compile Include="libbe\ui\__init__.py" />
+    <Compile Include="libbe\util\encoding.py" />
+    <Compile Include="libbe\util\id.py" />
+    <Compile Include="libbe\util\plugin.py" />
+    <Compile Include="libbe\util\subproc.py" />
+    <Compile Include="libbe\util\tree.py" />
+    <Compile Include="libbe\util\utility.py" />
+    <Compile Include="libbe\util\__init__.py" />
+    <Compile Include="libbe\version.py" />
+    <Compile Include="libbe\_version.py" />
+    <Compile Include="libbe\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="libbe\" />
+    <Folder Include="libbe\command\" />
+    <Folder Include="libbe\storage\" />
+    <Folder Include="libbe\storage\util\" />
+    <Folder Include="libbe\storage\vcs\" />
+    <Folder Include="libbe\ui\" />
+    <Folder Include="libbe\ui\util\" />
+    <Folder Include="libbe\util\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>

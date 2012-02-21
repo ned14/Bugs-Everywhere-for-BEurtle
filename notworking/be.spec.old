@@ -1,0 +1,20 @@
+# -*- mode: python -*-
+import os
+files=["be.py"]
+for dirpath, dirnames, filenames in os.walk("libbe"):
+    for filename in filenames:
+        if filename[-3:]==".py":
+            files.append(os.path.join(dirpath, filename))
+a = Analysis([os.path.join(HOMEPATH,'support\\_mountzlib.py'), os.path.join(HOMEPATH,'support\\useUnicode.py')]+files,
+             pathex=['G:\\BEurtle\\BE'])
+pyz = PYZ(a.pure)
+exe = EXE( pyz,
+          a.scripts,
+          a.binaries,
+          a.zipfiles,
+          a.datas,
+          name=os.path.join('dist', 'be.exe'),
+          debug=False,
+          strip=False,
+          upx=True,
+          console=True )
