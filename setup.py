@@ -22,7 +22,7 @@ if os.path.exists(man_path):
     data_files.append(('share/man/man1', [man_path]))
 
 setup(
-    name='Bugs Everywhere',
+    name='Bugs Everywhere (BEurtle fork)',
 	console=['be.py'],
     version=version.version()+" ("+rev_date+")",
     description='Bugtracker supporting distributed revision control',
@@ -37,5 +37,5 @@ setup(
               'libbe.util'],
     scripts=['be', 'be.bat'],
     data_files=data_files,
-    install_requires=['pyyaml', 'jinja2'],
+    install_requires=['pyyaml', 'jinja2', 'cherrypy'],
     )
