@@ -1,4 +1,5 @@
-import os, bbfreeze, zipfile
+import os, bbfreeze, zipfile, compileall
+compileall.compile_dir("libbe")
 f=bbfreeze.Freezer()
 f.addScript("be.py")
 f.addModule("htmlentitydefs")
