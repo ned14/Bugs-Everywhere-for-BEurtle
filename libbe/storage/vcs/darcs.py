@@ -159,8 +159,8 @@ class Darcs(base.VCS):
             shutil.rmtree(vcs_dir)
 
     def _vcs_add(self, path):
-        if os.path.isdir(path):
-            return
+        #if os.path.isdir(path):
+        #    return
         if self.version_cmp(0, 9, 10) == 1:
             self._u_invoke_client('add', '--boring', path)
         else:  # really old versions <= 0.9.10 lack --boring

@@ -107,8 +107,8 @@ class Git(base.VCS):
             shutil.rmtree(vcs_dir)
 
     def _vcs_add(self, path):
-        if os.path.isdir(path):
-            return
+        #if os.path.isdir(path):
+        #    return
         self._u_invoke_client('add', path)
 
     def _vcs_remove(self, path):

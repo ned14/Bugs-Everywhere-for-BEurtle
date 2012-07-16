@@ -189,8 +189,8 @@ class Monotone (base.VCS):
             os.remove(self._db_path)
 
     def _vcs_add(self, path):
-        if os.path.isdir(path):
-            return
+        #if os.path.isdir(path):
+        #    return
         self._invoke_client('add', path)
 
     def _vcs_remove(self, path):
